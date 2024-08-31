@@ -1,0 +1,7 @@
+{
+  "name": "comandago",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}
