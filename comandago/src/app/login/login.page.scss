@@ -1,11 +1,18 @@
 .input {
     display: flex;
-    margin-top: 75px;
+    margin: 0;
+    align-items: center;
     margin-right: 75px;
     margin-left: 75px;
-    // width: 58%;
 }
-.password {
+
+.container-father {
+  margin-top: 75px;
+  margin-right: 75px;
+  margin-left: 75px;
+}
+
+.button {
   display: flex;
   margin-right: 75px;
   margin-left: 75px;
