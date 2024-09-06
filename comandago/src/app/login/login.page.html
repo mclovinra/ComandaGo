@@ -5,25 +5,28 @@
 </ion-header>
 
 <ion-content>
-  <mat-form-field class="input">
-    <mat-label>Usuario</mat-label>
-    <input matInput>
-  </mat-form-field>
 
-  <div class="password">
-    <mat-form-field>
-      <mat-label clase="centrar">Ingresa Contraseña</mat-label>
-      <input matInput [type]="hide() ? 'password' : 'text'" />
-      <button
-        mat-icon-button
-        matSuffix
-        (click)="clickEvent($event)"
-        [attr.aria-label]="'Hide password'"
-        [attr.aria-pressed]="hide()"
-      >
-        <mat-icon>{{hide() ? 'visibility_off' : 'visibility'}}</mat-icon>
-      </button>
+  <div class="input-container">
+    <mat-form-field class="input">
+      <mat-label class="centrar">Usuario</mat-label>
+      <input matInput>
     </mat-form-field>
+  
+    <div class="password">
+      <mat-form-field>
+        <mat-label class="centrar">Ingresa Contraseña</mat-label>
+        <input matInput [type]="hide() ? 'password' : 'text'" />
+        <button
+          mat-icon-button
+          matSuffix
+          (click)="clickEvent($event)"
+          [attr.aria-label]="'Hide password'"
+          [attr.aria-pressed]="hide()"
+        >
+          <mat-icon>{{hide() ? 'visibility_off' : 'visibility'}}</mat-icon>
+        </button>
+      </mat-form-field>
+    </div>
   </div>
 
   <div class="password">
@@ -32,6 +35,6 @@
   </div>
 
   <div class="justificar">
-    <a href="">Olvide mi constraseña</a>
+    <a href="" class="a-center">Olvide mi constraseña</a>
   </div>
 </ion-content>
