@@ -1,0 +1,51 @@
+.input {
+    display: flex;
+    margin-top: 75px;
+    margin-right: 75px;
+    margin-left: 75px;
+    // width: 58%;
+}
+.password {
+  display: flex;
+  margin-right: 75px;
+  margin-left: 75px;
+}
+
+.justificar {
+    margin-top: 20px;
+}
+
+.a-center{
+  display: block;
+  margin: 0 auto;
+  text-align: center; 
+}
+
+.example-container mat-form-field + mat-form-field {
+  margin-left: 8px;
+}
+
+.example-right-align {
+  text-align: right;
+}
+
+input.example-right-align::-webkit-outer-spin-button,
+input.example-right-align::-webkit-inner-spin-button {
+  display: none;
+}
+
+input.example-right-align {
+  -moz-appearance: textfield;
+}
+
+.input-container {
+  display: flex;
+  flex-direction: column; /* Asegura que los elementos estén uno debajo del otro */
+  gap: 16px; /* Espacio entre los campos */
+  width: 100%; /* O cualquier ancho deseado */
+  max-width: 400px; /* Ancho máximo si es necesario */
+}
+
+.full-width {
+  width: 100%; /* Asegura que ambos campos de entrada tengan el mismo ancho */
+}
