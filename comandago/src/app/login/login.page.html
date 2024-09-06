@@ -8,12 +8,12 @@
   <div class="container-father">
     <mat-form-field class="input">
       <mat-label class="centrar">Usuario</mat-label>
-      <input matInput>
+      <input matInput formControlName="usuario">
     </mat-form-field>
 
     <mat-form-field class="input">
       <mat-label class="centrar">Ingresa Contraseña</mat-label>
-      <input matInput [type]="hide() ? 'password' : 'text'" />
+      <input matInput formControlName="password" [type]="hide() ? 'password' : 'text'" />
       <button mat-icon-button matSuffix
         (click)="clickEvent($event)"
         [attr.aria-label]="'Hide password'"
@@ -28,7 +28,13 @@
     </div>
 
     <div class="justificar">
-      <a href="" class="a-center">Olvide mi constraseña</a>
+      <a href="" class="a-center">Olvide mi contraseña</a>
     </div>
   </div>
 </ion-content>
+
+<ion-footer>
+  <ion-toolbar color ="primary">
+
+  </ion-toolbar>
+</ion-footer>

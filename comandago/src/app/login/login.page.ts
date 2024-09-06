@@ -31,7 +31,7 @@ export class LoginPage implements OnInit {
 
   constructor(public fb: FormBuilder, public router: Router) {
     this.formularioLogin = this.fb.group({
-      'nombre': new FormControl("", Validators.required),
+      'usuario': new FormControl("", Validators.required),
       'password': new FormControl("", Validators.required)
     });
   }
