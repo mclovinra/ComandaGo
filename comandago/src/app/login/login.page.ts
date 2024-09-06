@@ -6,6 +6,8 @@ import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
+import { Router } from '@angular/router';
+import { addIcons } from "ionicons";
 
 @Component({
   selector: 'app-login',
@@ -27,18 +29,21 @@ export class LoginPage implements OnInit {
   formularioLogin: FormGroup;
   hide = signal(true);
 
-  constructor(public fb: FormBuilder) {
+  constructor(public fb: FormBuilder, public router: Router) {
     this.formularioLogin = this.fb.group({
       'nombre': new FormControl("", Validators.required),
       'password': new FormControl("", Validators.required)
     });
   }
-
   ngOnInit() {}
 
   clickEvent(event: MouseEvent) {
     this.hide.set(!this.hide());
     event.stopPropagation();
+  }
+
+  goToRegister(){
+
   }
 
 }
