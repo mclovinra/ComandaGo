@@ -1,6 +1,5 @@
 import { ChangeDetectionStrategy, signal, Component, CUSTOM_ELEMENTS_SCHEMA, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms';
-
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
@@ -31,9 +30,12 @@ export class LoginPage implements OnInit {
 
   constructor(public fb: FormBuilder, public router: Router) {
     this.formularioLogin = this.fb.group({
-      'usuario': new FormControl("", Validators.required),
-      'password': new FormControl("", Validators.required)
+      'user': new FormControl("", Validators.required),
+      'pass': new FormControl("", Validators.required)
     });
+
+    console.log('Usuario:',);
+    console.log('Contraseña:',);
   }
   ngOnInit() {}
 
@@ -42,6 +44,20 @@ export class LoginPage implements OnInit {
     event.stopPropagation();
   }
 
+  login() {
+    const user = this.formularioLogin.get('user')?.value;
+    const pass = this.formularioLogin.get('pass')?.value;
+    
+    console.log('Usuario:', this.formularioLogin);
+    console.log('Contraseña:', pass);
+  
+    if (user == 'diego' && pass == 'diego') {
+      console.log('Login exitoso');
+    } else {
+      console.log(`Credenciales incorrectas  - ${user} ${pass} -`);
+    }
+  }
+  
   goToRegister(){
     this.router.navigate(['/register'])
   }
