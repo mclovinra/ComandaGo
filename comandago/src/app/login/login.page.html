@@ -10,12 +10,12 @@
 
     <mat-form-field class="input">
       <mat-label class="centrar">Usuario</mat-label>
-      <input matInput formControlName="user">
+      <input matInput formControlName="user" #userInput>
     </mat-form-field>
 
     <mat-form-field class="input">
       <mat-label class="centrar">Ingresa Contraseña</mat-label>
-      <input matInput formControlName="pass" [type]="hide() ? 'password' : 'text'" />
+      <input matInput formControlName="pass" [type]="hide() ? 'password' : 'text'" #passInput/>
       <button mat-icon-button matSuffix
         (click)="clickEvent($event)"
         [attr.aria-label]="'Hide password'"
