@@ -28,6 +28,8 @@ export class RegisterPage implements OnInit {
   }
 
   guardar(){
+
+    console.log(this.formularioRegistro)
     console.log('Guardado con Exito')
   }
 
