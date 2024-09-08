@@ -1,7 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit,} from '@angular/core';
 import { Router } from '@angular/router';
 import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms';
 import { CheckboxCustomEvent, AlertController } from '@ionic/angular';
+import {NavController } from '@ionic/angular';
+import { AnimationController } from '@ionic/angular';
 
 @Component({
   selector: 'app-register',
@@ -9,15 +11,18 @@ import { CheckboxCustomEvent, AlertController } from '@ionic/angular';
   styleUrls: ['./register.page.scss'],
 })
 export class RegisterPage implements OnInit {
+  
 
   formularioRegistro: FormGroup;
 
-
   canDismiss = false;
+  presentingElement: Element | null = null;
 
-  presentingElement: Element | null = null;  // Acepta 'Element' o 'null'
-
-  constructor(public router: Router ,public fb: FormBuilder, public alertController: AlertController) {
+  constructor(public router: Router ,
+    public fb: FormBuilder,
+    public alertController: AlertController,
+    public NavController: NavController, 
+    public animationCtrl: AnimationController) {
 
     this.formularioRegistro = this.fb.group({
       'userName': new FormControl("", Validators.required),
@@ -28,17 +33,12 @@ export class RegisterPage implements OnInit {
   }
 
   ngOnInit() {
-    this.presentingElement = document.querySelector('.register');
+    this.presentingElement = document.querySelector('.ion-page');
   }
 
 
   goToLogin(){
     this.router.navigate(['/login'])
-  }
-
-  onTermsChanged(event: Event) {
-    const ev = event as CheckboxCustomEvent;
-    this.canDismiss = ev.detail.checked;
   }
 
   async saveUser(){
@@ -77,4 +77,57 @@ export class RegisterPage implements OnInit {
     await alert.present();
   }
 
+  enterAnimation = (baseEl: HTMLElement) => {
+    const root = baseEl.shadowRoot;
+
+    if (!root) {
+      return this.animationCtrl.create(); // Devuelve una animación vacía si root es null
+    }
+
+    const backdropElement = root.querySelector('ion-backdrop');
+    const wrapperElement = root.querySelector('.modal-wrapper');
+
+    if (!backdropElement || !wrapperElement) {
+      return this.animationCtrl.create(); // Devuelve una animación vacía si los elementos no están presentes
+    }
+
+    const backdropAnimation = this.animationCtrl
+      .create()
+      .addElement(backdropElement)
+      .fromTo('opacity', '0.01', 'var(--backdrop-opacity)');
+
+    const wrapperAnimation = this.animationCtrl
+      .create()
+      .addElement(wrapperElement)
+      .keyframes([
+        { offset: 0, opacity: '0', transform: 'scale(0)' },
+        { offset: 1, opacity: '0.99', transform: 'scale(1)' },
+      ]);
+
+    return this.animationCtrl
+      .create()
+      .addElement(baseEl)
+      .easing('ease-out')
+      .duration(500)
+      .addAnimation([backdropAnimation, wrapperAnimation]);
+  };
+
+  leaveAnimation = (baseEl: HTMLElement | null) => {
+    if (!baseEl) {
+      return this.animationCtrl.create(); // Devuelve una animación vacía si baseEl es null
+    }
+
+    const enterAnim = this.enterAnimation(baseEl);
+
+    if (!enterAnim) {
+      return this.animationCtrl.create(); // Devuelve una animación vacía si enterAnimation devolvió null
+    }
+
+    return enterAnim.direction('reverse');
+  };
+
+  onTermsChanged(event: CustomEvent) {
+    // Usa CustomEvent y accede a detail.checked
+    this.canDismiss = (event.detail as { checked: boolean }).checked;
+  }
 }
