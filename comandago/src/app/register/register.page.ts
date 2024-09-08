@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms';
-import { AlertController } from '@ionic/angular';
+import { CheckboxCustomEvent, AlertController } from '@ionic/angular';
 
 @Component({
   selector: 'app-register',
@@ -11,6 +11,10 @@ import { AlertController } from '@ionic/angular';
 export class RegisterPage implements OnInit {
 
   formularioRegistro: FormGroup;
+
+  canDismiss = true;
+
+  presentingElement: Element | null = null;  // Acepta 'Element' o 'null'
 
   constructor(public router: Router ,public fb: FormBuilder, public alertController: AlertController) {
 
@@ -22,10 +26,17 @@ export class RegisterPage implements OnInit {
   }
 
   ngOnInit() {
+    this.presentingElement = document.querySelector('.register');
   }
+
 
   goToLogin(){
     this.router.navigate(['/login'])
+  }
+
+  onTermsChanged(event: Event) {
+    const ev = event as CheckboxCustomEvent;
+    this.canDismiss = ev.detail.checked;
   }
 
   async saveUser(){
