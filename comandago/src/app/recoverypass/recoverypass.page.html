@@ -1,0 +1,27 @@
+<ion-header [translucent]="true">
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-button [routerLink]="['/login']">Volver</ion-button>
+    </ion-buttons>
+    <ion-title>ComandaGO</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <ion-card class="container-father">
+    <ion-card-header>
+      <ion-card-title>Recupera tu Contraseña</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      <form [formGroup]="recoveryPassForm" (ngSubmit)="onSubmit()">
+        <ion-item>
+          <ion-label position="floating">Correo Electrónico</ion-label>
+          <ion-input formControlName="email" type="email"></ion-input>
+        </ion-item>
+        <div class="password">
+          <ion-button expand="full" type="submit" [disabled]="recoveryPassForm.invalid" color="primary"> Enviar </ion-button>
+        </div>
+      </form>
+    </ion-card-content>
+  </ion-card>
+</ion-content>

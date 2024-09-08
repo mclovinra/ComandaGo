@@ -1,0 +1,43 @@
+.container-father {
+    margin-top: 100px;
+    margin-left: auto;
+    margin-right: auto;
+    width: 100%;
+    max-width: 350px;
+  }
+
+  .button {
+    display: flex;
+    justify-content: space-between;
+    margin: 15px 15px;
+    border-radius: 14px;
+  }
+  .password ion-button {
+    flex: 1;
+    margin: 0 10px;
+    border-radius: 14px;
+  }
+
+  @media (max-width: 600px) {
+    .input {
+      max-width: 100%;
+    }
+  
+    .container-father {
+      margin: 150px auto;
+      width: 90%;
+    }
+  
+    .button {
+      flex-direction: column;
+      align-items: center;
+      border-radius: 14px;
+    }
+  
+    .password ion-button {
+      width: 100%;
+      margin: 0px 0px 50px 0px;
+      border-radius: 14px;
+    }
+  }
+  

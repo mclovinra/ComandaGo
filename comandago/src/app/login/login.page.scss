@@ -15,6 +15,7 @@
 }
 
 .button {
+  border-radius: 14px;
   display: flex;
   justify-content: space-between;
   margin: 15px 15px;
@@ -36,22 +37,22 @@
 }
 
 @media (max-width: 600px) {
-.input {
-  max-width: 100%;
-}
+  .input {
+    max-width: 100%;
+  }
 
-.container-father {
-  margin: 150px auto;
-  width: 90%;
-}
+  .container-father {
+    margin: 150px auto;
+    width: 90%;
+  }
 
-.button {
-  flex-direction: column;
-  align-items: center;
-}
+  .button {
+    flex-direction: column;
+    align-items: center;
+  }
 
-.password ion-button {
-  width: 100%;
-  margin: 0px 0px 50px 0px;
-}
+  .password ion-button {
+    width: 100%;
+    margin: 0px 0px 50px 0px;
+  }
 }

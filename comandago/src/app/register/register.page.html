@@ -1,6 +1,6 @@
 <ion-header [translucent]="true">
   <ion-toolbar color="primary">
-    <ion-buttons slot="end">
+    <ion-buttons slot="start">
       <ion-button (click)="goToLogin()">Volver</ion-button>
     </ion-buttons>
     <ion-title>Registro</ion-title>
@@ -8,7 +8,7 @@
 </ion-header>
 
 <ion-content>
-  <ion-card>
+  <ion-card >
    <ion-card-content>
       <form [formGroup]="formularioRegistro" (keyup.enter)="saveUser()">
         <ion-item>

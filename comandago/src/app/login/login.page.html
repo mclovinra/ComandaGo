@@ -5,9 +5,7 @@
 </ion-header>
 
 <ion-content>
-
   <div class="container-father">
-
     <mat-form-field class="input">
       <mat-label class="centrar">Usuario</mat-label>
       <input matInput id="user" #userInput>
@@ -33,11 +31,9 @@
     </div>
 
     <div class="justificar">
-      <a href="" class="a-center">Olvide mi contraseña</a>
+      <a [routerLink]="['/recoverypass']" class="a-center">Olvide mi contraseña</a>
     </div>
-    
   </div>
-
 </ion-content>
 
 <ion-footer>

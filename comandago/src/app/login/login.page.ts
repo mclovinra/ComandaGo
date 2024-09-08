@@ -5,7 +5,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
-import { Router } from '@angular/router';
+import { Router, RouterLink, RouterOutlet } from '@angular/router';
 import { AlertController } from '@ionic/angular';
 import * as $ from 'jquery';
 
@@ -20,7 +20,8 @@ import * as $ from 'jquery';
     MatInputModule,
     MatSelectModule,
     MatIconModule,
-    MatButtonModule
+    MatButtonModule,
+    RouterLink
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
@@ -94,6 +95,15 @@ export class LoginPage implements OnInit {
       $('#loginButton').click(async () => {
         const userValue = $('#user').val();
         const passValue = $('#pass').val();
+        let userStorage = null;
+        let passStorage = null;
+
+        const storedUser = localStorage.getItem('user');
+        if (storedUser) {
+          const userObject = JSON.parse(storedUser);
+          userStorage = userObject.userName;
+          passStorage = userObject.password;
+        }
   
         // Validar si los campos están vacíos
         if (!userValue || !passValue) {
@@ -107,8 +117,7 @@ export class LoginPage implements OnInit {
         }
   
         // Validar credenciales
-        if (userValue === 'diego' && passValue === '1234') {
-          console.log(`Login Exitoso - ${userValue} ${passValue}`);
+        if (userValue === userStorage && passValue === passStorage) {
         } else {
           const alert = await this.alertController.create({
             header: 'Credenciales Inválidas',
