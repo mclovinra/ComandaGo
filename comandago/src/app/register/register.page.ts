@@ -15,7 +15,7 @@ export class RegisterPage implements OnInit {
   constructor(public router: Router ,public fb: FormBuilder, public alertController: AlertController) {
 
     this.formularioRegistro = this.fb.group({
-      'nombre': new FormControl("", Validators.required),
+      'userName': new FormControl("", Validators.required),
       'password': new FormControl("", Validators.required),
       'passwordComfirm': new FormControl("",Validators.required)
     })
@@ -28,7 +28,7 @@ export class RegisterPage implements OnInit {
     this.router.navigate(['/login'])
   }
 
-  async guardar(){
+  async saveUser(){
 
     var f = this.formularioRegistro.value;
 
@@ -43,12 +43,25 @@ export class RegisterPage implements OnInit {
       return;
     }
 
-    var usuario = {
-      nombre: f.nombre,
+    var newUsuario = {
+      userName: f.userName,
       password: f.password
     }
 
-    localStorage.setItem('usuario',JSON.stringify(usuario));
+    localStorage.setItem('user',JSON.stringify(newUsuario));
+    const alert = await this.alertController.create({
+      header: 'Registro',
+      message: 'Usuario registrado exitosamente.',
+      buttons: [
+      {
+        text: 'Aceptar',
+        handler: () => {
+          this.goToLogin();
+        }
+      }
+    ],
+    });
+    await alert.present();
   }
 
 }

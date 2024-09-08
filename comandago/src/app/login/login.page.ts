@@ -6,6 +6,9 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { Router } from '@angular/router';
+import { AlertController } from '@ionic/angular';
+import * as $ from 'jquery';
+
 
 @Component({
   selector: 'app-login',
@@ -23,43 +26,100 @@ import { Router } from '@angular/router';
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
 export class LoginPage implements OnInit {
-
-  formularioLogin: FormGroup;
+  
   hide = signal(true);
 
   @ViewChild('userInput', { static: true }) user!: ElementRef;
   @ViewChild('passInput', { static: true }) pass!: ElementRef;
 
-  constructor(public fb: FormBuilder, public router: Router) {
-    this.formularioLogin = this.fb.group({
-      'user': new FormControl("", Validators.required),
-      'pass': new FormControl("", Validators.required)
-    });
+  constructor(public fb: FormBuilder, public router: Router, public alertController: AlertController) {
+
   }
 
   ngOnInit() {}
+
+  ngAfterViewInit(): void {
+    this.loginJqueryValidate();
+  }
 
   clickEvent(event: MouseEvent) {
     this.hide.set(!this.hide());
     event.stopPropagation();
   }
 
-  login() {
-    setTimeout(() => {
-
+  async loginUser() {
       const userValue = this.user.nativeElement.value;
       const passValue = this.pass.nativeElement.value;
 
-      if (userValue == 'diego' && passValue == '1234') {
-        console.log(`Login Exitoso - ${userValue} ${passValue}`);
-      } else {
-        console.log(`Credenciales incorrectas - ${userValue} ${passValue}`);
-      }
-    },0);
+      // if(!userValue?.trim() || !passValue?.trim()){
+      //   const alert = await this.alertController.create({
+      //     header: 'Datos incompletos',
+      //     message: 'Debe de llenar todos los campos.',
+      //     buttons: ['Aceptar'],
+      //   });
+  
+      //   await alert.present();
+      //   return;
+      // }
+
+      // if (userValue == 'diego' && passValue == '1234') {
+      //   console.log(`Login Exitoso - ${userValue} ${passValue}`);
+      // } else {
+      //     const alert = await this.alertController.create({
+      //       header: 'Credenciales inválidas',
+      //       message: 'Nombre de usuario y/o contraseña incorrectos.',
+      //       buttons: ['Aceptar'],
+      //     });
+    
+      //     await alert.present();
+      //     return;
+      // }
   }
 
   goToRegister() {
     this.router.navigate(['/register']);
   }
 
+  loginJqueryValidate(): void {
+    $(document).ready(() => {
+      // Mostrar/ocultar la contraseña
+      $('#togglePassword').click(() => {
+        const passInput = $('#pass');
+        const passType = passInput.attr('type') === 'password' ? 'text' : 'password';
+        passInput.attr('type', passType);
+        $('#toggleIcon').text(passType === 'password' ? 'visibility_off' : 'visibility');
+      });
+  
+      // Validar formulario al hacer clic en "Iniciar Sesión"
+      $('#loginButton').click(async () => {
+        const userValue = $('#user').val();
+        const passValue = $('#pass').val();
+  
+        // Validar si los campos están vacíos
+        if (!userValue || !passValue) {
+          const alert = await this.alertController.create({
+            header: 'Datos incompletos',
+            message: 'Debe de llenar todos los campos.',
+            buttons: ['Aceptar'],
+          });
+          await alert.present();
+          return;
+        }
+  
+        // Validar credenciales
+        if (userValue === 'diego' && passValue === '1234') {
+          console.log(`Login Exitoso - ${userValue} ${passValue}`);
+        } else {
+          const alert = await this.alertController.create({
+            header: 'Credenciales Inválidas',
+            message: 'Nombre de usuario y/o contraseña incorrectos.',
+            buttons: ['Aceptar'],
+          });
+          await alert.present();
+          return;
+        }
+      });
+    });
+  }
+  
 }
