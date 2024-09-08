@@ -12,7 +12,8 @@ export class RegisterPage implements OnInit {
 
   formularioRegistro: FormGroup;
 
-  canDismiss = true;
+
+  canDismiss = false;
 
   presentingElement: Element | null = null;  // Acepta 'Element' o 'null'
 
@@ -21,7 +22,8 @@ export class RegisterPage implements OnInit {
     this.formularioRegistro = this.fb.group({
       'userName': new FormControl("", Validators.required),
       'password': new FormControl("", Validators.required),
-      'passwordComfirm': new FormControl("",Validators.required)
+      'passwordComfirm': new FormControl("",Validators.required),
+      'email': new FormControl("",Validators.required)
     })
   }
 
