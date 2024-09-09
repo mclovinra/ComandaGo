@@ -77,6 +77,10 @@ export class LoginPage implements OnInit {
       // }
   }
 
+  goToHome(){
+    this.router.navigate(['/home']);
+  }
+
   goToRegister() {
     this.router.navigate(['/register']);
   }
@@ -93,12 +97,13 @@ export class LoginPage implements OnInit {
   
       // Validar formulario al hacer clic en "Iniciar Sesión"
       $('#loginButton').click(async () => {
+
         const userValue = $('#user').val();
         const passValue = $('#pass').val();
         let userStorage = null;
         let passStorage = null;
-
         const storedUser = localStorage.getItem('user');
+
         if (storedUser) {
           const userObject = JSON.parse(storedUser);
           userStorage = userObject.userName;
@@ -118,6 +123,20 @@ export class LoginPage implements OnInit {
   
         // Validar credenciales
         if (userValue === userStorage && passValue === passStorage) {
+          const alert = await this.alertController.create({
+            header: 'Login Exitoso',
+            message: 'Bienvido/a ' + userValue,
+            buttons: [
+              {
+                text: 'Aceptar',
+                handler: () => {
+                  this.goToHome();
+                  }
+              }
+            ],
+          });
+          await alert.present();
+          return;
         } else {
           const alert = await this.alertController.create({
             header: 'Credenciales Inválidas',
