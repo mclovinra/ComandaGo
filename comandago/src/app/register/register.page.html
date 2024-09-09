@@ -28,7 +28,7 @@
             <ion-input-password-toggle slot="end"></ion-input-password-toggle>
           </ion-input>
         </ion-item>
-        <ion-note *ngIf="formularioRegistro.get('password')?.touched && formularioRegistro.get('password')?.hasError('required')" color="danger">
+        <ion-note *ngIf="formularioRegistro.get('password')?.touched && formularioRegistro.get('password')?.hasError('passwordInvalid')" color="danger">
           La contraseña debe contener <br>
           * Al menos 4 números<br>
           * Al menos 3 caracteres<br>

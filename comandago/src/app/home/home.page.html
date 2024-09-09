@@ -1,5 +1,8 @@
 <ion-header [translucent]="true">
   <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-button (click)="logout()">Cerrar Sesión</ion-button>
+    </ion-buttons>
     <ion-title>Inicio</ion-title>
   </ion-toolbar>
 </ion-header>
@@ -10,8 +13,8 @@
       <img src="assets/img/logo.png" alt="Logo" class="logo">
     </div>
     <ion-card-header>
-      <ion-card-title>Usuario</ion-card-title>
-      <ion-card-subtitle>Nombre de Ususario</ion-card-subtitle>
+      <ion-card-title>Inicio</ion-card-title>
+      <ion-card-subtitle>Bienvenido/a {{userName}}</ion-card-subtitle>
     </ion-card-header>
   
     <ion-card-content>

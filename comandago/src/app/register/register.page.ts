@@ -1,9 +1,7 @@
 import { Component, OnInit,} from '@angular/core';
 import { Router } from '@angular/router';
-import { FormGroup, FormControl, Validators, FormBuilder, EmailValidator } from '@angular/forms';
-import { CheckboxCustomEvent, AlertController } from '@ionic/angular';
-import {NavController } from '@ionic/angular';
-import { AnimationController } from '@ionic/angular';
+import { FormGroup, FormControl, Validators, FormBuilder, EmailValidator, AbstractControl, ValidationErrors } from '@angular/forms';
+import { CheckboxCustomEvent, AlertController, NavController, AnimationController } from '@ionic/angular';
 
 @Component({
   selector: 'app-register',
@@ -26,7 +24,7 @@ export class RegisterPage implements OnInit {
 
     this.formularioRegistro = this.fb.group({
       'userName': new FormControl("", Validators.required),
-      'password': new FormControl("", Validators.required),
+      'password': new FormControl("", [Validators.required, this.passwordValidator]),
       'passwordConfirm': new FormControl("",Validators.required),
       'email': new FormControl ("", [Validators.required, Validators.email])
     })
@@ -35,7 +33,10 @@ export class RegisterPage implements OnInit {
   ngOnInit() {
     this.presentingElement = document.querySelector('.ion-page');
   }
-
+  
+  goToHome(){
+    this.router.navigate(['/home']);
+  }
 
   goToLogin(){
     this.router.navigate(['/login'])
@@ -44,61 +45,55 @@ export class RegisterPage implements OnInit {
   async saveUser(){
 
     var f = this.formularioRegistro.value;
-    
-    if (this.formularioRegistro.invalid) 
-    {
-      // Verifica si el campo de email es inválido
-      const emailControl = this.formularioRegistro.get('email');
-      if (emailControl?.invalid) 
+
+    // Verifica si el campo de email es inválido
+    const emailControl = this.formularioRegistro.get('email');
+    if (emailControl?.invalid) 
+    {    
+      if (emailControl.hasError('email')) 
       {
-        let message = '';
-    
-        if (emailControl.hasError('email')) 
-        {
-          const alert = await this.alertController.create({
-            header: 'Email inválido',
-            message: 'Por favor ingrese un correo electrónico válido.',
-            buttons: ['Aceptar'],
-          });
-
-          await alert.present();
-          return; // Sale de la función si hay error en el email
-        } 
-      }
-
-      // Verifica si los campos de contraseña no coinciden
-      const password = this.formularioRegistro.get('password')?.value;
-      const confirmPassword = this.formularioRegistro.get('passwordConfirm')?.value;
-
-      console.log(password + " - " + confirmPassword);
-      if (password !== confirmPassword) {
         const alert = await this.alertController.create({
-          header: 'Contraseñas no coinciden',
-          message: 'Las contraseñas no coinciden, por favor verifique.',
+          header: 'Email inválido',
+          message: 'Por favor ingrese un correo electrónico válido.',
           buttons: ['Aceptar'],
         });
-        await alert.present();
-        return; // Sale de la función si hay error de contraseña
-      }
 
-      // Verifica si algún campo está vacío
-      if (!f.valid) {
-        const alert = await this.alertController.create({
-          header: 'Datos incompletos',
-          message: 'Debe de llenar todos los campos.',
-          buttons: ['Aceptar'],
-        });
         await alert.present();
-        return; // Sale de la función si un campo es vacio
-      }
+        return; // Sale de la función si hay error en el email
+      } 
+    }
+
+    // Verifica si los campos de contraseña no coinciden
+    const password = this.formularioRegistro.get('password')?.value;
+    const confirmPassword = this.formularioRegistro.get('passwordConfirm')?.value;
+
+    if (password !== confirmPassword) {
+      const alert = await this.alertController.create({
+        header: 'Contraseñas no coinciden',
+        message: 'Las contraseñas no coinciden, por favor verifique.',
+        buttons: ['Aceptar'],
+      });
+      await alert.present();
+      return; // Sale de la función si hay error de contraseña
+    }
+
+    // Verifica si algún campo está vacío
+    if (!this.formularioRegistro.valid) {
+      const alert = await this.alertController.create({
+        header: 'Datos incompletos',
+        message: 'Debe de llenar todos los campos.',
+        buttons: ['Aceptar'],
+      });
+      await alert.present();
+      return; // Sale de la función si un campo es vacio
     }
 
     var newUser = {
-      userName: f.userName,
-      password: f.password
+    userName: f.userName,
+    password: f.password
     }
 
-    localStorage.setItem('user',JSON.stringify(newUser));
+    sessionStorage.setItem('user',JSON.stringify(newUser));
     const alert = await this.alertController.create({
       header: 'Registro',
       message: 'Usuario registrado exitosamente.',
@@ -106,7 +101,7 @@ export class RegisterPage implements OnInit {
       {
         text: 'Aceptar',
         handler: () => {
-          this.goToLogin();
+          this.goToHome();
         }
       }
     ],
@@ -166,5 +161,23 @@ export class RegisterPage implements OnInit {
   onTermsChanged(event: CustomEvent) {
     // Usa CustomEvent y accede a detail.checked
     this.canDismiss = (event.detail as { checked: boolean }).checked;
+  }
+
+  passwordValidator(control: AbstractControl): ValidationErrors | null {
+    const value = control.value || '';
+  
+    // Verifica si hay al menos 4 números
+    const hasFourNumbers = (value.match(/\d/g) || []).length >= 4;
+    
+    // Verifica si hay al menos 3 caracteres (cualquier cosa que no sea un espacio en blanco)
+    const hasThreeCharacters = (value.match(/[^\s]/g) || []).length >= 3;
+  
+    // Verifica si hay al menos 1 letra mayúscula
+    const hasUpperCase = /[A-Z]/.test(value);
+  
+    const valid = hasFourNumbers && hasThreeCharacters && hasUpperCase;
+  
+    // Si la contraseña no es válida, devuelve un objeto con el error
+    return !valid ? { passwordInvalid: true } : null;
   }
 }

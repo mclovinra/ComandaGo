@@ -102,7 +102,7 @@ export class LoginPage implements OnInit {
         const passValue = $('#pass').val();
         let userStorage = null;
         let passStorage = null;
-        const storedUser = localStorage.getItem('user');
+        const storedUser = sessionStorage.getItem('user');
 
         if (storedUser) {
           const userObject = JSON.parse(storedUser);
