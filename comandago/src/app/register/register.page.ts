@@ -101,7 +101,7 @@ export class RegisterPage implements OnInit {
       {
         text: 'Aceptar',
         handler: () => {
-          this.goToHome();
+          this.goToLogin();
         }
       }
     ],

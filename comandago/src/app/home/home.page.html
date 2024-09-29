@@ -1,7 +1,7 @@
 <ion-header [translucent]="true">
   <ion-toolbar color="primary">
     <ion-buttons slot="start">
-      <ion-button (click)="logout()">Cerrar Sesión</ion-button>
+      <ion-menu-button></ion-menu-button>
     </ion-buttons>
     <ion-title>Inicio</ion-title>
   </ion-toolbar>
@@ -14,11 +14,32 @@
     </div>
     <ion-card-header>
       <ion-card-title>Inicio</ion-card-title>
-      <ion-card-subtitle>Bienvenido/a {{userName}}</ion-card-subtitle>
+      <ion-card-subtitle>Bienvenido/a {{user}}</ion-card-subtitle>
     </ion-card-header>
   
     <ion-card-content>
-      Este es el inicio luego de iniciar sesión
+      <ion-card-content *ngIf="userApi; else loading">
+        <h2>Nombre: {{ userApi.name }}</h2>
+        <p>Usuario: {{ userApi.username }}</p>
+        <p>Email: {{ userApi.email }}</p>
+        <p>Teléfono: {{ userApi.phone }}</p>
+        <p>Website: {{ userApi.website }}</p>
+        
+        <h3>Dirección:</h3>
+        <p>{{ userApi.address.street }}, {{ userApi.address.suite }}</p>
+        <p>{{ userApi.address.city }}, {{ userApi.address.zipcode }}</p>
+        <p>Coordenadas: {{ userApi.address.geo.lat }}, {{ userApi.address.geo.lng }}</p>
+    
+        <h3>Compañía:</h3>
+        <p>Nombre: {{ userApi.company.name }}</p>
+        <p>Frase de Captura: {{ userApi.company.catchPhrase }}</p>
+        <p>Descripción: {{ userApi.company.bs }}</p>
+      </ion-card-content>
+    
+      <!-- Mensaje en caso de que no se haya cargado el usuario -->
+      <ng-template #loading>
+        <p>Cargando datos del usuario...</p>
+      </ng-template>
     </ion-card-content>
   </ion-card>
 </ion-content>

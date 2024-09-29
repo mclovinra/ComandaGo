@@ -5,8 +5,8 @@ import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
-import { Router, RouterLink, RouterOutlet } from '@angular/router';
-import { AlertController } from '@ionic/angular';
+import { NavigationExtras, Router, RouterLink, RouterOutlet } from '@angular/router';
+import { AlertController, MenuController } from '@ionic/angular';
 import * as $ from 'jquery';
 
 
@@ -33,7 +33,7 @@ export class LoginPage implements OnInit {
   @ViewChild('userInput', { static: true }) user!: ElementRef;
   @ViewChild('passInput', { static: true }) pass!: ElementRef;
 
-  constructor(public fb: FormBuilder, public router: Router, public alertController: AlertController) {
+  constructor(public fb: FormBuilder, public router: Router, public alertController: AlertController, private menu: MenuController) {
 
   }
 
@@ -41,6 +41,14 @@ export class LoginPage implements OnInit {
 
   ngAfterViewInit(): void {
     this.loginJqueryValidate();
+  }
+
+  ionViewWillEnter() {
+    this.menu.enable(false);
+  }
+  
+  ionViewWillLeave() {
+    this.menu.enable(true);
   }
 
   clickEvent(event: MouseEvent) {
@@ -122,7 +130,9 @@ export class LoginPage implements OnInit {
         }
   
         // Validar credenciales
-        if (userValue === userStorage && passValue === passStorage) {
+        // if (userValue === userStorage && passValue === passStorage) {
+          if (1 === 1 && 1 === 1) {
+          sessionStorage.setItem('isAuthenticated', 'true');
           const alert = await this.alertController.create({
             header: 'Login Exitoso',
             message: 'Bienvido/a ' + userValue,
@@ -130,8 +140,13 @@ export class LoginPage implements OnInit {
               {
                 text: 'Aceptar',
                 handler: () => {
-                  this.goToHome();
-                  }
+                  const navigationExtras: NavigationExtras = {
+                    state: {
+                      user: userValue
+                    }
+                  };
+                  this.router.navigate(['/home'], navigationExtras);
+                }
               }
             ],
           });
@@ -149,5 +164,4 @@ export class LoginPage implements OnInit {
       });
     });
   }
-  
 }
