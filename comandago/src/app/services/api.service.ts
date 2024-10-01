@@ -6,7 +6,7 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class ApiService {
-  private apiUrl = 'https://jsonplaceholder.typicode.com/';  // La URL de la API externa
+  private apiUrl = 'http://localhost:3000';  // La URL de la API externa
 
   constructor(private http: HttpClient) {}
 
@@ -22,6 +22,10 @@ export class ApiService {
 
   getUserById(id: number) {
     return this.http.get(`${this.apiUrl}/users/${id}`);
+  }
+
+  getUserByUserName(userName: string) {
+    return this.http.get(`${this.apiUrl}/users/?userName=${userName}`);
   }
 
   // Método para hacer una petición POST

@@ -1,0 +1,6 @@
+{
+  "dependencies": {
+    "@awesome-cordova-plugins/sqlite": "^6.9.0",
+    "cordova-sqlite-storage": "^6.1.0"
+  }
+}

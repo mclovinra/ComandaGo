@@ -8,6 +8,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { NavigationExtras, Router, RouterLink, RouterOutlet } from '@angular/router';
 import { AlertController, MenuController } from '@ionic/angular';
 import * as $ from 'jquery';
+import { ApiService } from '../services/api.service';
 
 
 @Component({
@@ -28,12 +29,15 @@ import * as $ from 'jquery';
 })
 export class LoginPage implements OnInit {
   
+  userApi: any = null;
   hide = signal(true);
 
   @ViewChild('userInput', { static: true }) user!: ElementRef;
   @ViewChild('passInput', { static: true }) pass!: ElementRef;
 
-  constructor(public fb: FormBuilder, public router: Router, public alertController: AlertController, private menu: MenuController) {
+  constructor(public fb: FormBuilder, public router: Router, 
+              public alertController: AlertController, private menu: MenuController,
+              private apiService: ApiService) {
 
   }
 
@@ -106,8 +110,11 @@ export class LoginPage implements OnInit {
       // Validar formulario al hacer clic en "Iniciar Sesión"
       $('#loginButton').click(async () => {
 
-        const userValue = $('#user').val();
+        const userValue = $('#user').val()?.toString();
         const passValue = $('#pass').val();
+
+        let userApi;
+        let passApi;
         let userStorage = null;
         let passStorage = null;
         const storedUser = sessionStorage.getItem('user');
@@ -131,36 +138,59 @@ export class LoginPage implements OnInit {
   
         // Validar credenciales
         // if (userValue === userStorage && passValue === passStorage) {
-          if (1 === 1 && 1 === 1) {
-          sessionStorage.setItem('isAuthenticated', 'true');
-          const alert = await this.alertController.create({
-            header: 'Login Exitoso',
-            message: 'Bienvido/a ' + userValue,
-            buttons: [
-              {
-                text: 'Aceptar',
-                handler: () => {
-                  const navigationExtras: NavigationExtras = {
-                    state: {
-                      user: userValue
-                    }
-                  };
-                  this.router.navigate(['/home'], navigationExtras);
+          this.apiService.getUserByUserName(userValue).subscribe(
+            async (data: any) => { // Asegúrate de que sea async si usas await dentro
+              if (data.length > 0) {
+                this.userApi = data[0];
+                const userApi = this.userApi.userName; // Cambia a this.userApi.userName si necesitas acceder más tarde
+                const passApi = this.userApi.pass; // Cambia a this.userApi.pass si necesitas acceder más tarde
+          
+                console.log('Nombre de usuario: ' + userApi + ' - ' + userValue);
+                console.log('Contraseña: ' + passApi + ' - ' + passValue);
+          
+                // Verifica las credenciales aquí
+                if (userValue == userApi && passValue == passApi) {
+                  sessionStorage.setItem('isAuthenticated', 'true');
+                  const alert = await this.alertController.create({
+                    header: 'Login Exitoso',
+                    message: 'Bienvenido/a ' + userValue,
+                    buttons: [
+                      {
+                        text: 'Aceptar',
+                        handler: () => {
+                          const navigationExtras: NavigationExtras = {
+                            state: {
+                              user: userValue
+                            }
+                          };
+                          this.router.navigate(['/home'], navigationExtras);
+                        }
+                      }
+                    ],
+                  });
+                  await alert.present();
+                } else {
+                  const alert = await this.alertController.create({
+                    header: 'Credenciales Inválidas',
+                    message: 'Nombre de usuario y/o contraseña incorrectos.',
+                    buttons: ['Aceptar'],
+                  });
+                  await alert.present();
                 }
+              } else {
+                const alert = await this.alertController.create({
+                  header: 'Credenciales Inválidas',
+                  message: 'Nombre de usuario y/o contraseña incorrectos.',
+                  buttons: ['Aceptar'],
+                });
+                await alert.present();
               }
-            ],
-          });
-          await alert.present();
-          return;
-        } else {
-          const alert = await this.alertController.create({
-            header: 'Credenciales Inválidas',
-            message: 'Nombre de usuario y/o contraseña incorrectos.',
-            buttons: ['Aceptar'],
-          });
-          await alert.present();
-          return;
-        }
+            },
+            (error) => {
+              console.error('Error al obtener el usuario:', error);
+            }
+          );
+          
       });
     });
   }

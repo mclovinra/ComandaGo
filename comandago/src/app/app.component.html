@@ -28,7 +28,30 @@
     </ion-content>
   </ion-menu>
 
+  
+
   <ion-split-pane contentId="main-content">
     <ion-router-outlet id="main-content"></ion-router-outlet>
   </ion-split-pane>
+
+  <ion-tabs>
+    <ion-tab-bar color ="primary" slot="bottom">
+      <ion-tab-button tab="home">
+        <ion-icon name="play-circle"></ion-icon>
+        Listen Now
+      </ion-tab-button>
+      <ion-tab-button tab="radio">
+        <ion-icon name="radio"></ion-icon>
+        Radio
+      </ion-tab-button>
+      <ion-tab-button tab="library">
+        <ion-icon name="library"></ion-icon>
+        Library
+      </ion-tab-button>
+      <ion-tab-button tab="search">
+        <ion-icon name="search"></ion-icon>
+        Search
+      </ion-tab-button>
+    </ion-tab-bar>
+  </ion-tabs>
 </ion-app>

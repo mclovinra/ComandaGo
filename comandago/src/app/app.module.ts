@@ -7,11 +7,12 @@ import { AppRoutingModule } from './app-routing.module';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 import { HttpClientModule } from '@angular/common/http';
 import { CommonModule } from '@angular/common';
+import {SQLite} from '@awesome-cordova-plugins/sqlite/ngx';
 
 @NgModule({
   declarations: [AppComponent],
   imports: [AppRoutingModule, BrowserModule, IonicModule.forRoot(), RouterModule, HttpClientModule, CommonModule],
-  providers: [{ provide: RouteReuseStrategy, useClass: IonicRouteStrategy }, provideAnimationsAsync()],
+  providers: [{ provide: RouteReuseStrategy, useClass: IonicRouteStrategy }, provideAnimationsAsync(), SQLite],
   bootstrap: [AppComponent],
 })
 export class AppModule {}
