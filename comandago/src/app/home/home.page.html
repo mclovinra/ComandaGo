@@ -19,21 +19,9 @@
   
     <ion-card-content>
       <ion-card-content *ngIf="userApi; else loading">
-        <h2>Nombre: {{ userApi.name }}</h2>
-        <p>Usuario: {{ userApi.username }}</p>
+        <h2>Nombre: {{ userApi.fullName }}</h2>
+        <p>Usuario: {{ userApi.userName }}</p>
         <p>Email: {{ userApi.email }}</p>
-        <p>Teléfono: {{ userApi.phone }}</p>
-        <p>Website: {{ userApi.website }}</p>
-        
-        <h3>Dirección:</h3>
-        <p>{{ userApi.address.street }}, {{ userApi.address.suite }}</p>
-        <p>{{ userApi.address.city }}, {{ userApi.address.zipcode }}</p>
-        <p>Coordenadas: {{ userApi.address.geo.lat }}, {{ userApi.address.geo.lng }}</p>
-    
-        <h3>Compañía:</h3>
-        <p>Nombre: {{ userApi.company.name }}</p>
-        <p>Frase de Captura: {{ userApi.company.catchPhrase }}</p>
-        <p>Descripción: {{ userApi.company.bs }}</p>
       </ion-card-content>
     
       <!-- Mensaje en caso de que no se haya cargado el usuario -->

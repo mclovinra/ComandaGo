@@ -139,11 +139,11 @@ export class LoginPage implements OnInit {
         // Validar credenciales
         // if (userValue === userStorage && passValue === passStorage) {
           this.apiService.getUserByUserName(userValue).subscribe(
-            async (data: any) => { // Asegúrate de que sea async si usas await dentro
+            async (data: any) => {
               if (data.length > 0) {
                 this.userApi = data[0];
-                const userApi = this.userApi.userName; // Cambia a this.userApi.userName si necesitas acceder más tarde
-                const passApi = this.userApi.pass; // Cambia a this.userApi.pass si necesitas acceder más tarde
+                const userApi = this.userApi.userName;
+                const passApi = this.userApi.pass;
           
                 console.log('Nombre de usuario: ' + userApi + ' - ' + userValue);
                 console.log('Contraseña: ' + passApi + ' - ' + passValue);
@@ -151,6 +151,7 @@ export class LoginPage implements OnInit {
                 // Verifica las credenciales aquí
                 if (userValue == userApi && passValue == passApi) {
                   sessionStorage.setItem('isAuthenticated', 'true');
+                  
                   const alert = await this.alertController.create({
                     header: 'Login Exitoso',
                     message: 'Bienvenido/a ' + userValue,
@@ -163,7 +164,9 @@ export class LoginPage implements OnInit {
                               user: userValue
                             }
                           };
-                          this.router.navigate(['/home'], navigationExtras);
+                          this.router.navigate(['/home'], navigationExtras).then(() => {
+                            window.location.reload();
+                          });
                         }
                       }
                     ],

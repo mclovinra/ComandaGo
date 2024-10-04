@@ -5,7 +5,7 @@
         {"id": 3, "name": "Papas", "valor": 3000, "stock": 12}
     ],
     "users": [
-        {"id": 1, "userName": "diego", "pass": 1234},
-        {"id": 2, "userName": "seba", "pass": 1234}
+        {"id": 1, "userName": "diego", "pass": 1234, "fullName": "Diego Peñaloza", "email": "die.penaloza@duocuc.cl"},
+        {"id": 2, "userName": "seba", "pass": 1234, "fullName": "Sebastian Nuñez", "email": "sa.nunz@duocuc.cl"}
     ]
 }

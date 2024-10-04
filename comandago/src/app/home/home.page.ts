@@ -14,6 +14,7 @@ import { ApiService } from '../services/api.service';
 })
 export class HomePage implements OnInit {
 
+  isAuthenticated: boolean = false;
   user!: string;
   userApi: any = null;
 
@@ -27,10 +28,13 @@ export class HomePage implements OnInit {
       console.log('No se encontraron datos de navegación.');
     }
 
-    const userId = 0; 
-    this.apiService.getUserById(userId).subscribe(
-      (data) => {
-        this.userApi = data;
+    this.isAuthenticated = sessionStorage.getItem('isAuthenticated') === 'true';
+
+    this.apiService.getUserByUserName(this.user).subscribe(
+      (data: any) => {
+        if (data.length > 0) {
+          this.userApi = data[0];
+        }
         console.log('Usuario obtenido:', this.userApi);
       },
       (error) => {
