@@ -28,6 +28,10 @@ export class ApiService {
     return this.http.get(`${this.apiUrl}/users/?userName=${userName}`);
   }
 
+  getUserByFullName(fullName: string): Observable<any> {
+    return this.http.get(`${this.apiUrl}/users/?fullName_like=${fullName}`);
+  }
+
   // Método para hacer una petición POST
   postData(data: any): Observable<any> {
     const headers = new HttpHeaders({ 

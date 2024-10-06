@@ -1,6 +1,9 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { MenuController, NavController } from '@ionic/angular';
+
+//json-server --watch src/assets/dbjson/db.json  
+
 @Component({
   selector: 'app-root',
   templateUrl: 'app.component.html',

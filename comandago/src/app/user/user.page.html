@@ -1,13 +1,44 @@
 <ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-title>user</ion-title>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>Gestión de Usuario</ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">user</ion-title>
-    </ion-toolbar>
-  </ion-header>
+<ion-content>
+  <!-- Botón para agregar un nuevo usuario -->
+  <div class="password">
+    <ion-button slot="end" id="searchButton" color="success" (click)="navigateToAddUser()">Añadir Usuario</ion-button>
+  </div>
+  <!-- Input para buscar usuario -->
+  <ion-item>
+    <ion-label position="floating">Buscar Usuario</ion-label>
+    <ion-input #searchInput placeholder="Ingrese nombre de usuario" (ionInput)="onInputChange($event)"></ion-input>
+  </ion-item>
+
+  <div class="password">
+    <ion-button id="searchButton" color="primary" (click)="searchUser()">Buscar</ion-button>
+  </div>
+
+  <ion-list *ngIf="filteredUsers.length > 0">
+    <ion-list-header>
+      <ion-label>Usuarios Encontrados</ion-label>
+    </ion-list-header>
+    
+    <ion-item *ngFor="let user of filteredUsers">
+      <ion-label>
+        {{ user.fullName }}
+      </ion-label>
+    </ion-item>
+  </ion-list>
+
+  <!-- Mensaje cuando no hay usuarios -->
+  <ion-card *ngIf="filteredUsers.length === 0 && find">
+    <ion-card-header>
+      <ion-card-title>No se encontraron usuarios</ion-card-title>
+    </ion-card-header>
+  </ion-card>
+
 </ion-content>
