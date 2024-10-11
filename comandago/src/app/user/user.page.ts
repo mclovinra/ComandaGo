@@ -17,6 +17,7 @@ export interface User {
 })
 
 export class UserPage implements OnInit {
+  allUsers : User[] = [];
   filteredUsers: User[] = [];
   searchQuery: string = '';
   find: boolean = false;
@@ -30,30 +31,37 @@ export class UserPage implements OnInit {
     this.searchQuery = event.target.value; // Actualizar la variable con el valor del input
   }
 
-  
-  // Función para buscar usuarios
   searchUser() {
-    if (!this.searchQuery.trim()) {
-      this.filteredUsers = [];
-      this.find = false;
-      return;
-    }
-
-    this.apiService.getUserByFullName(this.searchQuery).subscribe(
+    this.apiService.getUsers().subscribe(
       (data: User[]) => {
-        this.filteredUsers = data;
-        this.find = data.length > 0;
+        this.allUsers = data;
+        this.filteredUsers = data;  // Al principio, no hay filtro, así que mostramos todos los usuarios
+      
+        if (this.searchQuery.trim() === '') {
+          this.filteredUsers = this.allUsers;  // Si el input está vacío, mostramos todos los usuarios
+          return;
+        }
+    
+        // Filtrar los usuarios basándose en el nombre completo o username
+        this.filteredUsers = this.allUsers.filter(user =>
+          user.fullName.toLowerCase().includes(this.searchQuery.toLowerCase()) ||
+          user.userName.toLowerCase().includes(this.searchQuery.toLowerCase())
+        );
+    
+        // Controlar si se encontraron usuarios
+        this.find = this.filteredUsers.length > 0;
+
       },
       (error) => {
-        console.error('Error al buscar el usuario:', error);
+        console.error('Error al traer los usuarios:', error);
+        this.allUsers = [];
         this.filteredUsers = [];
-        this.find = false;
       }
     );
   }
 
   // Navegar a la página para agregar un nuevo usuario
-  navigateToAddUser() {
+  ToAddUser() {
     this.router.navigate(['/add-user']);
   }
 

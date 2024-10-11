@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { User } from '../user/user.page';
 
 @Injectable({
   providedIn: 'root'
@@ -20,6 +21,10 @@ export class ApiService {
     return this.http.get(this.apiUrl, { headers });
   }
 
+  getUsers(): Observable<User[]> {
+    return this.http.get<User[]>(`${this.apiUrl}/users`);
+  }
+
   getUserById(id: number) {
     return this.http.get(`${this.apiUrl}/users/${id}`);
   }
@@ -30,6 +35,10 @@ export class ApiService {
 
   getUserByFullName(fullName: string): Observable<any> {
     return this.http.get(`${this.apiUrl}/users/?fullName_like=${fullName}`);
+  }
+
+  addUser(user: any): Observable<any> {
+    return this.http.post(`${this.apiUrl}/users/`, user);
   }
 
   // Método para hacer una petición POST

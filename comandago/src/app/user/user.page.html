@@ -10,7 +10,7 @@
 <ion-content>
   <!-- Botón para agregar un nuevo usuario -->
   <div class="password">
-    <ion-button slot="end" id="searchButton" color="success" (click)="navigateToAddUser()">Añadir Usuario</ion-button>
+    <ion-button slot="end" id="searchButton" color="success" (click)="ToAddUser()">Añadir Usuario</ion-button>
   </div>
   <!-- Input para buscar usuario -->
   <ion-item>
@@ -22,7 +22,7 @@
     <ion-button id="searchButton" color="primary" (click)="searchUser()">Buscar</ion-button>
   </div>
 
-  <ion-list *ngIf="filteredUsers.length > 0">
+  <ion-list *ngIf="find">
     <ion-list-header>
       <ion-label>Usuarios Encontrados</ion-label>
     </ion-list-header>
