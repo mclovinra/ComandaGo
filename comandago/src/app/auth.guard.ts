@@ -14,10 +14,13 @@ export class AuthGuard implements CanActivate {
 
   canActivate(): boolean {
     const user = sessionStorage.getItem('isAuthenticated'); // Verifica si hay un usuario logueado mediante sessionStorage
-    if (user) {
+    
+    if (user === 'true') {
+      console.log("canactivate " + user);
       return true; // Si el usuario está logueado, permite acceso
     } else {
-      this.router.navigate(['/login']); // Si no está logueado, redirige a login
+      console.log("canactivate " + user);
+      this.router.navigate(['']); // Si no está logueado, redirige a login
       return false;
     }
   }

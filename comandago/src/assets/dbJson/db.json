@@ -3,20 +3,23 @@
     {
       "id": "1",
       "name": "Pure",
-      "valor": 5000,
-      "stock": 10
+      "price": 5000,
+      "stock": 10,
+      "active": false
     },
     {
       "id": "2",
       "name": "Arroz",
-      "valor": 4000,
-      "stock": 9
+      "price": 4000,
+      "stock": 9,
+      "active": false
     },
     {
       "id": "3",
       "name": "Papas",
-      "valor": 3000,
-      "stock": 12
+      "price": 3000,
+      "stock": 12,
+      "active": false
     }
   ],
   "users": [
@@ -25,21 +28,8 @@
       "userName": "diego",
       "pass": 1234,
       "fullName": "Diego Peñaloza",
-      "email": "die.penaloza@duocuc.cl"
-    },
-    {
-      "id": 2,
-      "userName": "seba",
-      "pass": 1234,
-      "fullName": "Sebastian Nuñez",
-      "email": "sa.nunz@duocuc.cl"
-    },
-    {
-      "id": 3,
-      "userName": "rafu",
-      "fullName": "Rafu Quichiz",
-      "email": "ra.quichiz@duoc.cl",
-      "password": "123456"
+      "email": "die.penaloza@duocuc.cl",
+      "rol": 0
     }
   ]
 }

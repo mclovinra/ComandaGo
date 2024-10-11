@@ -24,25 +24,31 @@ const routes: Routes = [
     path: 'home',
     loadChildren: () => import('./home/home.module').then( m => m.HomePageModule),
     canActivate: [AuthGuard]
-  },  {
+  },
+  {
     path: 'user',
-    loadChildren: () => import('./user/user.module').then( m => m.UserPageModule)
+    loadChildren: () => import('./user/user.module').then( m => m.UserPageModule),
+    canActivate: [AuthGuard]
   },
   {
     path: 'product',
-    loadChildren: () => import('./product/product.module').then( m => m.ProductPageModule)
+    loadChildren: () => import('./product/product.module').then( m => m.ProductPageModule),
+    canActivate: [AuthGuard]
   },
   {
     path: 'order',
-    loadChildren: () => import('./order/order.module').then( m => m.OrderPageModule)
+    loadChildren: () => import('./order/order.module').then( m => m.OrderPageModule),
+    canActivate: [AuthGuard]
   },
   {
     path: 'add-user',
-    loadChildren: () => import('./add-user/add-user.module').then( m => m.AddUserPageModule)
+    loadChildren: () => import('./add-user/add-user.module').then( m => m.AddUserPageModule),
+    canActivate: [AuthGuard]
   },
   {
     path: 'add-product',
-    loadChildren: () => import('./add-product/add-product.module').then( m => m.AddProductPageModule)
+    loadChildren: () => import('./add-product/add-product.module').then( m => m.AddProductPageModule),
+    canActivate: [AuthGuard]
   },
 
 

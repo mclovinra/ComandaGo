@@ -21,6 +21,7 @@ export class ApiService {
     return this.http.get(this.apiUrl, { headers });
   }
 
+  //Sercicios Usuarios
   getUsers(): Observable<User[]> {
     return this.http.get<User[]>(`${this.apiUrl}/users`);
   }
@@ -49,4 +50,7 @@ export class ApiService {
 
     return this.http.post(this.apiUrl, data, { headers });
   }
+
+
+  //Servicios Productos
 }
