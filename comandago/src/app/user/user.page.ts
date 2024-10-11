@@ -1,12 +1,15 @@
 import { ApiService } from './../services/api.service';
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
+import { AlertController } from '@ionic/angular';
 
 export interface User {
   id: number;
   userName: string;
   fullName: string;
   email: string;
+  rol: number;
+  showOptions?: boolean;
 }
 
 
@@ -22,7 +25,9 @@ export class UserPage implements OnInit {
   searchQuery: string = '';
   find: boolean = false;
   
-  constructor(private router: Router, private apiService: ApiService) { }
+  constructor(private router: Router, 
+              private apiService: ApiService, 
+              private alertController: AlertController) { }
 
   ngOnInit() {
   }
@@ -34,6 +39,10 @@ export class UserPage implements OnInit {
   searchUser() {
     this.apiService.getUsers().subscribe(
       (data: User[]) => {
+        this.allUsers = data.map(user => ({
+          ...user,
+          showOptions: false // Inicializar showOptions en false
+        }));
         this.allUsers = data;
         this.filteredUsers = data;  // Al principio, no hay filtro, así que mostramos todos los usuarios
       
@@ -58,6 +67,77 @@ export class UserPage implements OnInit {
         this.filteredUsers = [];
       }
     );
+  }
+
+  toggleOptions(userSelect: User) {
+    this.filteredUsers.forEach(user => {
+      user.showOptions = user === userSelect ? !user.showOptions : false;
+    });
+  }
+
+  onEditUser(user: User) {
+    // Lógica para editar usuario
+    console.log('Editar usuario:', user.fullName);
+  }
+
+  async onDeleteUser(user: User) {
+    // Lógica para eliminar usuario
+    console.log('Eliminar usuario:', user.fullName);
+    // Crear y mostrar el alert
+    const alert = await this.alertController.create({
+      header: 'Eliminar Usuario',
+      message: '¿Está seguro que desea eliminar el usuario ' + user.fullName + '?',
+      buttons: [
+        {
+          text: 'Confirmar',
+          role: 'confirm',
+          handler: async () => {
+            await this.deleteUserApi(user);
+          }
+        },
+        {
+          text: 'Cancelar', // Agrega un botón para cancelar la acción
+          role: 'cancel',
+          handler: () => {
+            console.log('Canceló la eliminación del usuario.');
+          }
+        }
+      ],
+    });
+  
+    await alert.present();
+  }
+  
+  async deleteUserApi(userDelete: User) {
+    try {
+      const response = await this.apiService.deleteUser(userDelete.id.toString()).toPromise(); // Asumiendo que tienes un método deleteUser en tu ApiService
+      console.log('Usuario eliminado exitosamente', response);
+      const alert = await this.alertController.create({
+        header: 'Eliminar Usuario',
+        message: 'Usuario ' + userDelete.fullName + ' eliminado éxitosamente',
+        buttons: [
+          {
+            text: 'Aceptar', // Agrega un botón para cancelar la acción
+            role: 'confirm',
+            handler: () => {
+              this.searchUser();
+              console.log('');
+            }
+          }
+        ],
+      });
+    
+      await alert.present();
+    } catch (error) {
+      console.error('Error al eliminar el usuario', error);
+      // Aquí puedes mostrar un mensaje de error al usuario si es necesario
+    }
+  }
+  
+
+  onViewDetails(user: User) {
+    // Lógica para ver detalles del usuario
+    console.log('Ver detalles de usuario:', user.fullName);
   }
 
   // Navegar a la página para agregar un nuevo usuario

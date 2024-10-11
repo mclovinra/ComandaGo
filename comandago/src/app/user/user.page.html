@@ -26,13 +26,28 @@
     <ion-list-header>
       <ion-label>Usuarios Encontrados</ion-label>
     </ion-list-header>
-    
+  
     <ion-item *ngFor="let user of filteredUsers">
-      <ion-label>
-        {{ user.fullName }}
-      </ion-label>
+      <!-- Contenedor principal del usuario -->
+      <div class="user-container">
+        <ion-label class="user-name">{{ user.fullName }}</ion-label>
+  
+        <!-- Contenedor de botones alineados a la derecha -->
+        <div class="button-container">
+          <ion-button class="view-button" fill="clear" (click)="onViewDetails(user)">
+            <ion-icon name="eye-outline"></ion-icon> <!-- Icono para ver detalles -->
+          </ion-button>
+          <ion-button class="edit-button" fill="clear" (click)="onEditUser(user)">
+            <ion-icon name="create-outline"></ion-icon> <!-- Icono para editar -->
+          </ion-button>
+          <ion-button class="delete-button" fill="clear" (click)="onDeleteUser(user)">
+            <ion-icon name="trash-outline"></ion-icon> <!-- Icono para eliminar -->
+          </ion-button>
+        </div>
+      </div>
     </ion-item>
   </ion-list>
+  
 
   <!-- Mensaje cuando no hay usuarios -->
   <ion-card *ngIf="filteredUsers.length === 0 && find">

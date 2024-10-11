@@ -154,7 +154,7 @@ export class LoginPage implements OnInit {
                   
                   const alert = await this.alertController.create({
                     header: 'Login Exitoso',
-                    message: 'Bienvenido/a ' + userValue,
+                    message: 'Bienvenido/a ' + this.userApi.fullName,
                     buttons: [
                       {
                         text: 'Aceptar',

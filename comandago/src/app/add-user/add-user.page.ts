@@ -14,7 +14,7 @@ export class AddUserPage implements OnInit {
 
   userForm!: FormGroup;
   users: User[] = [];
-  nextId: number = 1;
+  nextId: string = "0";
 
   constructor(private formBuilder: FormBuilder, 
               private apiService: ApiService, 
@@ -51,7 +51,7 @@ export class AddUserPage implements OnInit {
   generateNextId() {
     if (this.users.length > 0) {
       const lastUser = this.users.reduce((prev, current) => (prev.id > current.id) ? prev : current);
-      this.nextId = (+lastUser.id) + 1;
+      this.nextId = ((+lastUser.id) + 1).toString();
     }
   }
 

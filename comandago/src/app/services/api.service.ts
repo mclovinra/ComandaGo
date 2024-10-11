@@ -26,7 +26,7 @@ export class ApiService {
     return this.http.get<User[]>(`${this.apiUrl}/users`);
   }
 
-  getUserById(id: number) {
+  getUserById(id: string) {
     return this.http.get(`${this.apiUrl}/users/${id}`);
   }
 
@@ -40,6 +40,10 @@ export class ApiService {
 
   addUser(user: any): Observable<any> {
     return this.http.post(`${this.apiUrl}/users/`, user);
+  }
+
+  deleteUser(userId: string): Observable<void> {
+    return this.http.delete<void>(`${this.apiUrl}/users/${userId}`);
   }
 
   // Método para hacer una petición POST
