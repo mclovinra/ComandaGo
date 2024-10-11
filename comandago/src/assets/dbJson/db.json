@@ -5,21 +5,8 @@
       "name": "Pure",
       "price": 5000,
       "stock": 10,
-      "active": false
-    },
-    {
-      "id": "2",
-      "name": "Arroz",
-      "price": 4000,
-      "stock": 9,
-      "active": false
-    },
-    {
-      "id": "3",
-      "name": "Papas",
-      "price": 3000,
-      "stock": 12,
-      "active": false
+      "active": false,
+      "type": "Guarnicion"
     }
   ],
   "users": [
