@@ -125,7 +125,7 @@ export class UserPage implements OnInit {
         message: 'Usuario ' + userDelete.fullName + ' eliminado éxitosamente',
         buttons: [
           {
-            text: 'Eliminar', // Agrega un botón para cancelar la acción
+            text: 'Cerrar', // Agrega un botón para cancelar la acción
             role: 'confirm',
             handler: () => {
               this.searchUser();
