@@ -49,7 +49,11 @@ const routes: Routes = [
     path: 'add-product',
     loadChildren: () => import('./add-product/add-product.module').then( m => m.AddProductPageModule),
     canActivate: [AuthGuard]
+  },  {
+    path: 'edit-user',
+    loadChildren: () => import('./edit-user/edit-user.module').then( m => m.EditUserPageModule)
   },
+
 
 
 ];

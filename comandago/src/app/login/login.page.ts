@@ -142,6 +142,7 @@ export class LoginPage implements OnInit {
             async (data: any) => {
               if (data.length > 0) {
                 this.userApi = data[0];
+                const userId = this.userApi.id;
                 const userApi = this.userApi.userName;
                 const passApi = this.userApi.pass;
           
@@ -151,7 +152,7 @@ export class LoginPage implements OnInit {
                 // Verifica las credenciales aquí
                 if (userValue == userApi && passValue == passApi) {
                   sessionStorage.setItem('isAuthenticated', 'true');
-                  
+                  sessionStorage.setItem('userId', userId);
                   const alert = await this.alertController.create({
                     header: 'Login Exitoso',
                     message: 'Bienvenido/a ' + this.userApi.fullName,
@@ -161,7 +162,7 @@ export class LoginPage implements OnInit {
                         handler: () => {
                           const navigationExtras: NavigationExtras = {
                             state: {
-                              user: userValue
+                              userId: userId
                             }
                           };
                           this.router.navigate(['/home'], navigationExtras).then(() => {

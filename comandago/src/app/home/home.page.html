@@ -13,13 +13,12 @@
       <img src="assets/img/logo.png" alt="Logo" class="logo">
     </div>
     <ion-card-header>
-      <ion-card-title>Inicio</ion-card-title>
-      <ion-card-subtitle>Bienvenido/a {{user}}</ion-card-subtitle>
+      <ion-card-title>Bienvenido/a</ion-card-title>
     </ion-card-header>
   
     <ion-card-content>
       <ion-card-content *ngIf="userApi; else loading">
-        <h2>Nombre: {{ userApi.fullName }}</h2>
+        <h2>{{ userApi.fullName }}</h2>
         <p>Usuario: {{ userApi.userName }}</p>
         <p>Email: {{ userApi.email }}</p>
       </ion-card-content>

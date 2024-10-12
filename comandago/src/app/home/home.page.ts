@@ -1,3 +1,4 @@
+import { User } from './../user/user.page';
 import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { Router, RouterLink } from '@angular/router';
@@ -15,25 +16,30 @@ import { ApiService } from '../services/api.service';
 export class HomePage implements OnInit {
 
   isAuthenticated: boolean = false;
-  user!: string;
-  userApi: any = null;
+  userId!: string;
+  userApi: any = {};
+  userAuth!: User;
 
   constructor(private router: Router, private apiService: ApiService, private menu: MenuController) {}
 
   ngOnInit() {
     const navigation = this.router.getCurrentNavigation();
-    if (navigation && navigation.extras.state) {
-      this.user = navigation.extras.state['user'];
+    if (navigation && navigation.extras.state && navigation.extras.state['userId'] != null) {
+      this.userId = navigation.extras.state['userId'];
     } else {
-      console.log('No se encontraron datos de navegación.');
+      this.userId = sessionStorage.getItem('userId') || '';
+    }
+    
+    if (this.userId === null) {
+      console.log('No se encontraron datos de navegación ni en el sessionStorage.');
     }
 
     this.isAuthenticated = sessionStorage.getItem('isAuthenticated') === 'true';
-
-    this.apiService.getUserByUserName(this.user).subscribe(
-      (data: any) => {
-        if (data.length > 0) {
-          this.userApi = data[0];
+    console.log(this.userId);
+    this.apiService.getUserById(this.userId.toString()).subscribe(
+      async (data: any) => {
+        if (data) {
+          this.userApi = data;          
         }
         console.log('Usuario obtenido:', this.userApi);
       },

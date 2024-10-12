@@ -1,6 +1,6 @@
 import { ApiService } from './../services/api.service';
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
-import { Router } from '@angular/router';
+import { NavigationExtras, Router } from '@angular/router';
 import { AlertController } from '@ionic/angular';
 
 export interface User {
@@ -76,8 +76,16 @@ export class UserPage implements OnInit {
   }
 
   onEditUser(user: User) {
-    // Lógica para editar usuario
+    const navigationExtras: NavigationExtras = {
+      state: {
+        userEdit: user
+      },
+    }
     console.log('Editar usuario:', user.fullName);
+
+    this.router.navigate(['/edit-user'], navigationExtras).then(() => {
+      window.location.reload();
+    });
   }
 
   async onDeleteUser(user: User) {
@@ -89,17 +97,17 @@ export class UserPage implements OnInit {
       message: '¿Está seguro que desea eliminar el usuario ' + user.fullName + '?',
       buttons: [
         {
-          text: 'Confirmar',
-          role: 'confirm',
-          handler: async () => {
-            await this.deleteUserApi(user);
-          }
-        },
-        {
           text: 'Cancelar', // Agrega un botón para cancelar la acción
           role: 'cancel',
           handler: () => {
             console.log('Canceló la eliminación del usuario.');
+          }
+        },
+        {
+          text: 'Confirmar',
+          role: 'confirm',
+          handler: async () => {
+            await this.deleteUserApi(user);
           }
         }
       ],
@@ -117,7 +125,7 @@ export class UserPage implements OnInit {
         message: 'Usuario ' + userDelete.fullName + ' eliminado éxitosamente',
         buttons: [
           {
-            text: 'Aceptar', // Agrega un botón para cancelar la acción
+            text: 'Eliminar', // Agrega un botón para cancelar la acción
             role: 'confirm',
             handler: () => {
               this.searchUser();
