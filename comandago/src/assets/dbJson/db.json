@@ -2,7 +2,7 @@
   "products": [
     {
       "id": "1",
-      "name": "Pure",
+      "productName": "Pure",
       "price": 5000,
       "stock": 10,
       "active": false,
@@ -17,6 +17,13 @@
       "fullName": "Diego Peñaloza",
       "email": "die.penaloza@duocuc.cl",
       "rol": 0
+    },
+    {
+      "id": "2",
+      "userName": "sebastian",
+      "fullName": "Sebastian Nuñez",
+      "email": "sa.nunezs@duocuc.cl",
+      "password": "123456"
     }
   ]
 }

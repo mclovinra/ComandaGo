@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { User } from '../user/user.page';
+import { Product } from '../product/product.page'
 
 @Injectable({
   providedIn: 'root'
@@ -55,6 +56,25 @@ export class ApiService {
     return this.http.post(this.apiUrl, data, { headers });
   }
 
-
   //Servicios Productos
+
+  getProducts(): Observable<Product[]> {
+    return this.http.get<Product[]>(`${this.apiUrl}/products`);
+  }
+
+  getProductById(id: string) {
+    return this.http.get(`${this.apiUrl}/products/${id}`);
+  }
+
+  getProductByproductName(productName: string) {
+    return this.http.get(`${this.apiUrl}/products/?productName=${productName}`);
+  }
+
+  addProduct(product: any): Observable<any> {
+    return this.http.post(`${this.apiUrl}/products/`, product);
+  }
+
+  deleteProduct(productId: string): Observable<void> {
+    return this.http.delete<void>(`${this.apiUrl}/products/${productId}`);
+  }
 }
