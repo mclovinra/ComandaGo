@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { NavigationExtras, Router } from '@angular/router';
+import { ApiService } from './../services/api.service';
+import { AlertController } from '@ionic/angular';
 
 export interface Product {
   id: number;
@@ -17,9 +20,14 @@ export interface Product {
 })
 export class ProductPage implements OnInit {
 
-  constructor() { }
+  constructor(private router: Router, 
+              private apiService: ApiService, 
+              private alertController: AlertController) { }
 
   ngOnInit() {
   }
 
+  ToAddProduct() {
+    this.router.navigate(['/add-product']);
+  }
 }
