@@ -11,18 +11,17 @@
   ],
   "users": [
     {
-      "id": "1",
-      "userName": "diego",
-      "pass": 1234,
-      "fullName": "Diego Peñaloza",
-      "email": "die.penaloza@duocuc.cl",
-      "rol": 0
+      "id": "3",
+      "userName": "seba",
+      "fullName": "Sebastian Nunez S",
+      "email": "sa.nunezs@duocuc.cl",
+      "password": "123456"
     },
     {
-      "id": "2",
-      "userName": "seba",
-      "fullName": "Sebastian Nunez",
-      "email": "sa.nunezs@duocuc.cl",
+      "id": "1",
+      "userName": "diego",
+      "fullName": "Diego Peñaloza",
+      "email": "die.penaloza@duocuc.cl",
       "password": "123456"
     }
   ]

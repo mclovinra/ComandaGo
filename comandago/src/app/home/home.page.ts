@@ -4,6 +4,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router, RouterLink } from '@angular/router';
 import { IonicModule, MenuController } from '@ionic/angular';
 import { ApiService } from '../services/api.service';
+import { Camera, CameraResultType, CameraSource } from '@capacitor/camera';
 
 @Component({
   selector: 'app-home',
@@ -19,6 +20,7 @@ export class HomePage implements OnInit {
   userId!: string;
   userApi: any = {};
   userAuth!: User;
+  public image: string = "";
 
   constructor(private router: Router, private apiService: ApiService, private menu: MenuController) {}
 
@@ -60,5 +62,16 @@ export class HomePage implements OnInit {
   logout() {
     sessionStorage.removeItem('user');
     this.router.navigate(['/login']);
+  }
+
+  async takePicture() {
+    const image = await Camera.getPhoto({
+      quality: 90,
+      allowEditing: false,
+      resultType: CameraResultType.Base64,  // Puedes usar 'Uri' si prefieres una URL de archivo.
+      source: CameraSource.Camera           // Para elegir entre cámara o galería.
+    });
+
+    this.image = `data:image/jpeg;base64,${image.base64String}`;  // Puedes mostrar esta imagen en el HTML
   }
 }

@@ -43,6 +43,9 @@ export class ApiService {
     return this.http.post(`${this.apiUrl}/users/`, user);
   }
 
+  editUser(user: any): Observable<any> {
+    return this.http.put(`${this.apiUrl}/users/${user.id}`, user);
+  }
   deleteUser(userId: string): Observable<void> {
     return this.http.delete<void>(`${this.apiUrl}/users/${userId}`);
   }

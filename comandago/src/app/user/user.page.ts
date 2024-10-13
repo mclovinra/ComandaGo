@@ -10,6 +10,7 @@ export interface User {
   email: string;
   rol: number;
   showOptions?: boolean;
+  password: string;
 }
 
 

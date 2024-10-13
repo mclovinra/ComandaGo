@@ -12,6 +12,7 @@ import { MenuController, NavController } from '@ionic/angular';
 export class AppComponent {
   public appPages = [{ title: 'Inbox', url: '/folder/inbox', icon: 'mail' },];
   public labels = [];
+
   constructor(public menu: MenuController, private router: Router, private navCtrl: NavController) {this.checkAuthentication();}
   isAuthenticated: boolean = false;
 

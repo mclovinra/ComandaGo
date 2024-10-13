@@ -1,13 +1,37 @@
 <ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-title>edit-user</ion-title>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>Editar Usuario</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">edit-user</ion-title>
-    </ion-toolbar>
-  </ion-header>
+  <div class="container-father">
+    <form [formGroup]="userForm" (ngSubmit)="onEditUser()">
+      <ion-item>
+        <ion-label position="floating">Nombre de Usuario</ion-label>
+        <ion-input formControlName="userName" required></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label position="floating">Nombre Completo</ion-label>
+        <ion-input formControlName="fullName" required></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label position="floating">Correo Electrónico</ion-label>
+        <ion-input type="email" formControlName="email" required></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label position="floating">Contraseña</ion-label>
+        <ion-input type="password" formControlName="password" required></ion-input>
+      </ion-item>
+      <div class="password">
+        <ion-button id="addButton" type="submit" color="primary" [disabled]="userForm.invalid">Guardar</ion-button>
+      </div>
+      <div class="password">
+        <ion-button id="backButton" type="submit" color="primary" (click)="navigateToUser()">Volver</ion-button>
+      </div>
+    </form>
+  </div>
 </ion-content>
