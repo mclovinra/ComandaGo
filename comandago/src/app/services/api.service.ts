@@ -8,7 +8,7 @@ import { Product } from '../product/product.page'
   providedIn: 'root'
 })
 export class ApiService {
-  private apiUrl = 'http://localhost:3000';  // La URL de la API externa
+  private apiUrl = 'http://192.168.1.93:3000';  // La URL de la API externa
 
   constructor(private http: HttpClient) {}
 
@@ -43,6 +43,9 @@ export class ApiService {
     return this.http.post(`${this.apiUrl}/users/`, user);
   }
 
+  editUser(user: any): Observable<any> {
+    return this.http.put(`${this.apiUrl}/users/${user.id}`, user);
+  }
   deleteUser(userId: string): Observable<void> {
     return this.http.delete<void>(`${this.apiUrl}/users/${userId}`);
   }

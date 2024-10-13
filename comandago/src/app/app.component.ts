@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { MenuController, NavController } from '@ionic/angular';
 
-//json-server --watch src/assets/dbjson/db.json  
+//json-server --watch src/assets/dbjson/db.json --host 0.0.0.0 --port 3000 
 
 @Component({
   selector: 'app-root',
@@ -12,6 +12,7 @@ import { MenuController, NavController } from '@ionic/angular';
 export class AppComponent {
   public appPages = [{ title: 'Inbox', url: '/folder/inbox', icon: 'mail' },];
   public labels = [];
+
   constructor(public menu: MenuController, private router: Router, private navCtrl: NavController) {this.checkAuthentication();}
   isAuthenticated: boolean = false;
 
